@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GenericAdapter<T, R> extends XmlAdapter<T, R> {
+public abstract class Adapter<T, R> extends XmlAdapter<T, R> {
 
 	private BeanMappingBuilder builder;
 

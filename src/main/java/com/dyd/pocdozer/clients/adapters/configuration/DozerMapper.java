@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class DozerMapper {
@@ -23,14 +22,13 @@ public class DozerMapper {
 	void initMapper() {
 		mapper = new DozerBeanMapper();
 
-		appContext.getBeansOfType(GenericAdapter.class).values()
-				.forEach(genericAdapter -> mapper.addMapping(genericAdapter.getBuilder()));
+		appContext.getBeansOfType(Adapter.class).values().forEach(genericAdapter -> mapper.addMapping(genericAdapter.getBuilder()));
 
 		mapper.setCustomConverters(converters);
 	}
 
 	public DozerBeanMapper getMapper() {
-		if(mapper == null )
+		if (mapper == null)
 			initMapper();
 		return mapper;
 	}
