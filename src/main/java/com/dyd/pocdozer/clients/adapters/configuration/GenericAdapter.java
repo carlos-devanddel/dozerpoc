@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GenericAdapter<T, R> extends XmlAdapter<T, R> {
 
@@ -47,6 +49,28 @@ public abstract class GenericAdapter<T, R> extends XmlAdapter<T, R> {
 			return null;
 		return dozerMapper.getMapper().map(v, getClT());
 	}
+
+
+	public List<R> unmarshal(Iterable<T> sources) {
+		if (sources == null)
+			return null;
+		ArrayList<R> targets = new ArrayList<R>();
+		for (T source : sources) {
+			targets.add(unmarshal(source));
+		}
+		return targets;
+	}
+
+	public List<T> marshal(Iterable<R> sources) {
+		if (sources == null)
+			return null;
+		ArrayList<T> targets = new ArrayList<T>();
+		for (R source : sources) {
+			targets.add(marshal(source));
+		}
+		return targets;
+	}
+
 
 	public Class<T> getClT() {
 		return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
