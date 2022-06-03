@@ -20,5 +20,7 @@ public class PocDozerApplication {
 	@PostConstruct
 	public void init() {
 		System.out.println(clientCaller.getDataFromClient().toString());
+
+		System.out.println(clientCaller.getData2FromClient().toString());
 	}
 }
